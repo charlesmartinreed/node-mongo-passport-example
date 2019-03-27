@@ -3,11 +3,11 @@ const express = require('express'),
 
 // LOGIN PAGE
 router.get('/login', (req, res) => {
-	res.send('Login here!');
+	res.render('login');
 })
 
 router.get('/register', (req, res) => {
-	res.send('Register here!');
+	res.render('register');
 })
 
 module.exports = router;
