@@ -23,11 +23,23 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false}))
 
 // express session Middleware
-app.use(session({
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true,
-}))
+app.use(
+	session({
+	  secret: 'secret',
+	  resave: true,
+	  saveUninitialized: true,
+	})
+);
+
+// connect flash middleware
+app.use(flash());
+
+// Global vars, used for colorizing success/failure messages, created with custom middleware
+app.use(function(req, res, next) {
+	res.locals.success_msg = req.flash('success_msg');
+	res.locals.error_msg = req.flash('error_msg');
+	next();
+});
 
 // ROUTES
 app.use('/', require('./routes/index'));
