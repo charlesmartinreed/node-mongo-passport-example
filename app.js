@@ -4,6 +4,8 @@ const express = require('express'),
 			port = process.env.PORT || 5000;
 
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 // DB Config
 const db = require('./config/keys').mongoURI;
@@ -19,6 +21,13 @@ app.set('view engine', 'ejs');
 
 // Bodyparser setup - included in express now
 app.use(express.urlencoded({ extended: false}))
+
+// express session Middleware
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true,
+}))
 
 // ROUTES
 app.use('/', require('./routes/index'));
